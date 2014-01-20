@@ -5,13 +5,9 @@
 		<?php include("./includes/head.php"); ?>
 		<title>Starter Template for Bootstrap</title>
 	</head>
-
 	<body>
-
 		<?php include("./includes/topbar.php"); ?>
-
 		<div class="jumbotron">
-
 			<div class="container">
 				<h1>CarDrive</h1>
 				<h2><small>La meilleure façon de gérer votre véhicule</small></h2>
