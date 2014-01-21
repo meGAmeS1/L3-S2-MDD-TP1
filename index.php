@@ -14,18 +14,21 @@ include_once("./includes/variables.php"); ?>
 				<h1>CarDrive</h1>
 				<h2><small>La meilleure façon de gérer votre véhicule</small></h2>
 				<br>
-				<?php if (isConnected())  { ?>
+				<?php
+				if (isConnected())  {
+					?>
 					<p>Vous êtes connecté, vous pouvez accéder à votre espace !</p>
 					<a href="./espace.php" class="btn btn-success btn-lg" role="button">Espace personnel</a>
 					<?php
 				}
-				else { ?>
-				<p>Connectez-vous à votre compte ou créez-vous votre espace</p>
-				<p>
-					<button type="button" class="btn btn-primary btn-lg" onclick="create()" >Création de compte</button>
-					<button type="button" class="btn btn-success btn-lg" onclick="connect()" >Connexion</button>
-				</p>
-				<?php
+				else {
+					?>
+					<p>Connectez-vous à votre compte ou créez-vous votre espace</p>
+					<p>
+						<button type="button" class="btn btn-primary btn-lg" onclick="create()" >Création de compte</button>
+						<button type="button" class="btn btn-success btn-lg" onclick="connect()" >Connexion</button>
+					</p>
+					<?php
 				}
 				?>
 			</div><!-- /.container -->

@@ -11,4 +11,5 @@ $argentmaxi	= 30000;
 // Prix des carburants
 $prixessence	= 2.5;
 $prixdiesel		= 1.5;
- ?>
+
+?>

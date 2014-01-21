@@ -11,7 +11,7 @@
 		</div>
 		<div class="navbar-collapse collapse">
 			<ul class="nav navbar-nav">
-				<li <?php if ($file=="index.php") echo 'class="active"'; ?>><a href="./">Home</a></li>
+				<li <?php if ($file=="index.php") echo 'class="active"'; ?>><a href="./">Accueil</a></li>
 				<?php if (isConnected()) {
 					?>
 					<li <?php if ($file=="espace.php") echo 'class="active"'; ?>><a href="./espace.php">Espace personnel</a></li>

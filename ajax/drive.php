@@ -51,7 +51,6 @@ if (empty($errorlist)) {
 		if (empty($errorlist)) {
 			$kilometrage = $distance + $vehicule['kilometrage'];
 
-			$volume = $vehicule['volume_restant'] + $quantite;
 			$requete="UPDATE vehicule SET volume_restant = $reservoir, kilometrage=$kilometrage WHERE proprietaire = '".$_SESSION['user']."';";
 			$resultat = mysqli_query($linkdb,$requete) OR $reqfail = 1;
 		}

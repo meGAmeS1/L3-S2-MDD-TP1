@@ -20,4 +20,3 @@ CREATE TABLE vehicule (
 	CONSTRAINT pk_vehicule_identifiant PRIMARY KEY (identifiant),
 	CONSTRAINT fk_vehicule_proprietaire FOREIGN KEY (proprietaire) REFERENCES internaute(identifiant)
 ) ENGINE=InnoDB ;
-

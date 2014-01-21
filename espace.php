@@ -59,9 +59,9 @@ include_once("./includes/variables.php");
 							}; ?>
 						</div>
 						<div class="col-md-4" style="text-align: center;">
-							Carburant : <?php echo $vehicule['carburant'] ; ?><br>
-							Consommation : <?php echo $vehicule['consommation'] ; ?> l/100km<br>
-							Kilométrage : <span id="fieldKilometrage"><?php echo $vehicule['kilometrage'] ; ?></span> km
+							Carburant : <span class="label label-primary" ><?php echo $vehicule['carburant'] ; ?></span><br>
+							Consommation : <span class="label label-primary" ><?php echo $vehicule['consommation'] ; ?> l/100km</span><br>
+							Kilométrage : <span class="label label-primary" ><span id="fieldKilometrage"><?php echo $vehicule['kilometrage'] ; ?></span> km</span>
 						</div>
 						<div class="col-md-3" style="margin: auto;">
 							<div id="gauge1" style="width:200px; height:160px"></div>
