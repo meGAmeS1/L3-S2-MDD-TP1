@@ -5,11 +5,9 @@ unset($_SESSION['user'])
 <html lang="en">
 	<head>
 		<?php include("./includes/head.php"); ?>
-		<title>Starter Template for Bootstrap</title>
+		<title>Déconnexion</title>
 	</head>
-
 	<body>
-
 		<?php include("./includes/topbar.php"); ?>
 		<div class="container" style="padding-top : 20px;">
 			<div class="col-md-offset-4 col-sm-4">

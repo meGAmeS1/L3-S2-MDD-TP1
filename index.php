@@ -1,9 +1,11 @@
-<?php include("./includes/init.php");?>
+<?php
+include("./includes/init.php");
+include_once("./includes/variables.php"); ?>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
 		<?php include("./includes/head.php"); ?>
-		<title>Starter Template for Bootstrap</title>
+		<title>Accueil de CarDrive</title>
 	</head>
 	<body>
 		<?php include("./includes/topbar.php"); ?>
@@ -53,13 +55,13 @@
 				<div class="form-group">
 					<label for="inputLogin" class="col-md-4 control-label">Login</label>
 					<div class="col-md-6">
-						<input type="text" class="form-control" id="inputLogin" placeholder="Login" required>
+						<input type="text" class="form-control" id="inputLogin" placeholder="Login" onkeypress="if (event.keyCode == 13) sendConnect();" required>
 					</div>
 				</div>
 				<div class="form-group">
 					<label for="inputPassword" class="col-md-4 control-label">Mot de passe</label>
 					<div class="col-md-6">
-						<input type="password" class="form-control" id="inputPassword" placeholder="Mot de passe" required>
+						<input type="password" class="form-control" id="inputPassword" placeholder="Mot de passe" onkeypress="if (event.keyCode == 13) sendConnect();" required>
 					</div>
 				</div>
 			</div>
@@ -76,19 +78,19 @@
 				<div class="form-group">
 					<label for="inputLogin" class="col-md-4 control-label">Login</label>
 					<div class="col-md-6">
-						<input type="text" class="form-control" id="inputLogin" placeholder="Login" required>
+						<input type="text" class="form-control" id="inputLogin" placeholder="Login" onkeypress="if (event.keyCode == 13) sendCreate();" required>
 					</div>
 				</div>
 				<div class="form-group">
 					<label for="inputPassword" class="col-md-4 control-label">Mot de passe</label>
 					<div class="col-md-6">
-						<input type="password" class="form-control" id="inputPassword" placeholder="Mot de passe" required>
+						<input type="password" class="form-control" id="inputPassword" placeholder="Mot de passe" onkeypress="if (event.keyCode == 13) sendCreate();" required>
 					</div>
 				</div>
 				<div class="form-group">
 					<label for="inputCategorie" class="col-md-4 control-label">Catégorie</label>
 					<div class="col-md-6">
-						<select name="inputCategorie" id="inputCategorie" class="form-control">
+						<select name="inputCategorie" id="inputCategorie" class="form-control" onkeypress="if (event.keyCode == 13) sendCreate();">
 							<option value="voiture">Voiture</option>
 							<option value="camion">Camion</option>
 						</select>
@@ -98,7 +100,7 @@
 					<label for="inputPrice" class="col-md-4 control-label">Prix</label>
 					<div class="col-md-6">
 						<div class="input-group">
-							<input type="number" class="form-control" id="inputPrice" placeholder="Prix" required>
+							<input type="number" class="form-control" id="inputPrice" placeholder="Prix" onkeypress="if (event.keyCode == 13) sendCreate();" required>
 							<span class="input-group-addon">€</span>
 						</div>
 					</div>
@@ -106,7 +108,7 @@
 				<div class="form-group">
 					<label for="inputFuel" class="col-md-4 control-label">Carburant</label>
 					<div class="col-md-6">
-						<select name="inputFuel" id="inputFuel" class="form-control">
+						<select name="inputFuel" id="inputFuel" class="form-control" onkeypress="if (event.keyCode == 13) sendCreate();">
 							<option value="essence">Essence</option>
 							<option value="diesel">Diesel</option>
 						</select>
@@ -116,7 +118,7 @@
 					<label for="inputVolume" class="col-md-4 control-label">Volume du réservoire</label>
 					<div class="col-md-6">
 						<div class="input-group">
-							<input type="number" class="form-control" id="inputVolume" placeholder="Volume" required>
+							<input type="number" class="form-control" id="inputVolume" placeholder="Volume" onkeypress="if (event.keyCode == 13) sendCreate();" required>
 							<span class="input-group-addon">litre</span>
 						</div>
 					</div>
@@ -125,7 +127,7 @@
 					<label for="inputConsumption" class="col-md-4 control-label">Consommation</label>
 					<div class="col-md-6">
 						<div class="input-group">
-							<input type="number" class="form-control" id="inputConsumption" placeholder="Consommation" required>
+							<input type="number" class="form-control" id="inputConsumption" placeholder="Consommation" onkeypress="if (event.keyCode == 13) sendCreate();" required>
 							<span class="input-group-addon">l/100km</span>
 						</div>
 					</div>
@@ -151,6 +153,8 @@
 				$('#myModalFooter').html($('#buttonsCreate').html());
 				$('#myModal').modal('show');
 
+				// Focus sur le premier champ
+				$('#myModal').on('shown.bs.modal', function () {$(".modal-body #inputLogin").focus();});
 			}
 
 			function connect() {
@@ -159,6 +163,9 @@
 				$('#myModalForm').html($('#formConnect').html());
 				$('#myModalFooter').html($('#buttonsConnect').html());
 				$('#myModal').modal('show');
+
+				// Focus sur le premier champ
+				$('#myModal').on('shown.bs.modal', function () {$(".modal-body #inputLogin").focus();});
 			}
 
 			function sendCreate () {
@@ -198,12 +205,13 @@
 						$('#myModalAlert').html('<div class="panel panel-success"><div class="panel-heading"><h3 class="panel-title">Saisie réussie</h3></div><div class="panel-body">Votre compte a bien été créé</div></div>');
 						$('#myModalFooter').html($('#buttonsClose').html());
 						$('#myModal').on('hide.bs.modal', function () {window.location.href = "./espace.php";});
+						setTimeout(function() {$('#myModal').modal('hide'); }, 3000);
 					}
 				});
 
 				reqform.fail(function(jqXHR, textStatus){
 					$('#myModalForm').html('');
-					$('#myModalAlert').html('<div class="panel panel-error"><div class="panel-heading"><h3 class="panel-title">Erreur</h3></div><div class="panel-body">Impossible d\'envoyer le formulaire</div></div>');
+					$('#myModalAlert').html('<div class="panel panel-danger"><div class="panel-heading"><h3 class="panel-title">Erreur</h3></div><div class="panel-body">Impossible d\'envoyer le formulaire</div></div>');
 					$('#myModalFooter').html($('#buttonsClose').html());
 				});
 			}
@@ -240,12 +248,13 @@
 						$('#myModalAlert').html('<div class="panel panel-success"><div class="panel-heading"><h3 class="panel-title">Connecté</h3></div><div class="panel-body">Vous êtes désormais connecté à votre espace personnel</div></div>');
 						$('#myModalFooter').html($('#buttonsClose').html());
 						$('#myModal').on('hide.bs.modal', function () {window.location.href = "./espace.php";});
+						setTimeout(function() {$('#myModal').modal('hide'); }, 3000);
 					}
 				});
 
 				reqform.fail(function(jqXHR, textStatus){
 					$('#myModalForm').html('');
-					$('#myModalAlert').html('<div class="alert alert-error"><h3>Erreur</h3></div><div class="panel-body">Impossible d\'envoyer le formulaire</div></div>');
+					$('#myModalAlert').html('<div class="panel panel-danger"><div class="panel-heading"><h3 class="panel-title">Erreur</h3></div><div class="panel-body">Impossible d\'envoyer le formulaire</div></div>');
 					$('#myModalFooter').html($('#buttonsClose').html());
 				});
 			}

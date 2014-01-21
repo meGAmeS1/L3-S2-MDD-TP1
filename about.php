@@ -1,9 +1,12 @@
-<?php include("./includes/init.php");?>
+<?php
+include("./includes/init.php");
+include_once("./includes/variables.php");
+?>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
 		<?php include("./includes/head.php"); ?>
-		<title>Starter Template for Bootstrap</title>
+		<title>À propos de CarDrive</title>
 	</head>
 
 	<body>
@@ -15,7 +18,14 @@
 				<h1>À propos</h1>
 				<h2>TP de Florentin Le Moal</h2>
 				<br>
-				<p>Propulsé avec amour et tradition par Bootstrap</p>
+				<p>
+					Propulsé avec amour et tradition par :
+					<ul>
+						<li><a href="FontAwesome">Bootstrap</a> (v3.0.3) : Framework CSS</li>
+						<li><a href="http://fontawesome.io">FontAwesome</a> (v4.0.3) : extension d'icônes vectorielles</li>
+						<li><a href="http://justgage.com">JustGage</a> (v1.0.1) : générateur de jauges </li>
+					</ul>
+				</p>
 			</div><!-- /.container -->
 		</div>
 		<div class="container">

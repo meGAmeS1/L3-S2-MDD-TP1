@@ -1,4 +1,5 @@
 <?php
+include_once("../includes/variables.php");
 session_start();
 
 $errorlist = array();
@@ -16,10 +17,10 @@ if (empty($errorlist)) {
 	include("../includes/connect.php"); // Connexion à la base
 
 	$login 			= mysqli_real_escape_string($linkdb,$_POST['login']);
-	$password 		= mysqli_real_escape_string($linkdb,$_POST['password']);
+	$pwd 			= mysqli_real_escape_string($linkdb,$_POST['password']);
 
 	// Vérification si le login existe déjà
-	$requete = "SELECT identifiant FROM internaute WHERE login = '$login' AND mdp = '$password';";
+	$requete = "SELECT identifiant FROM internaute WHERE login = '$login' AND mdp = '$pwd';";
 	$resultat = mysqli_query($linkdb,$requete) OR $reqfail = 1;
 
 	if (mysqli_num_rows($resultat) == false) {

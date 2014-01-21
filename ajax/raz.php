@@ -1,5 +1,7 @@
 <?php
+include_once("../includes/variables.php");
 include("../includes/connect.php");  // Connexion à la base
+
 $requetes ="";
 $sql=file("../includes/raz-base.sql"); // on charge le fichier SQL
 foreach($sql as $l){ // on le lit

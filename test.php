@@ -1,4 +1,6 @@
-<?php include("./includes/init.php");
+<?php
+include("./includes/init.php");
+include_once("./includes/variables.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">

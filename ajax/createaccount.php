@@ -1,4 +1,5 @@
 <?php
+include_once("../includes/variables.php");
 session_start();
 
 $errorlist = array();
@@ -34,6 +35,9 @@ elseif (!ctype_digit($_POST['price'])) {
 elseif ($_POST['price']<0) {
 	array_push($errorlist, "Le prix doit être positif");
 }
+elseif ($_POST['price']>=$argentmaxi) {
+	array_push($errorlist, "Le prix doit être strictement inférieur à " . $argentmaxi);
+}
 
 if(empty($_POST['fuel'])) {
 	array_push($errorlist, "Vous devez choisir un type de carburant");
@@ -64,7 +68,7 @@ if (empty($errorlist)) {
 	include("../includes/connect.php"); // Connexion à la base
 
 	$login 			= mysqli_real_escape_string($linkdb,$_POST['login']);
-	$password 		= mysqli_real_escape_string($linkdb,$_POST['password']);
+	$pwd 			= mysqli_real_escape_string($linkdb,$_POST['password']);
 	$categorie 		= mysqli_real_escape_string($linkdb,$_POST['categorie']);
 	$price 			= mysqli_real_escape_string($linkdb,$_POST['price']);
 	$fuel 			= mysqli_real_escape_string($linkdb,$_POST['fuel']);
@@ -80,9 +84,9 @@ if (empty($errorlist)) {
 	}
 	else {
 		$idinternaute = 0;
-		$argent = 30000 - $price;
+		$argent = $argentmaxi - $price;
 		// Insertion
-		$requete = "INSERT INTO internaute (login,mdp,compte) VALUES ('$login', '$password', $argent);";
+		$requete = "INSERT INTO internaute (login,mdp,compte) VALUES ('$login', '$pwd', $argent);";
 		$resultat = mysqli_query($linkdb,$requete) OR $reqfail = 1;
 
 		$requete = "SELECT identifiant FROM internaute WHERE login = '$login';";
