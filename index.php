@@ -107,8 +107,8 @@
 					<label for="inputFuel" class="col-md-4 control-label">Carburant</label>
 					<div class="col-md-6">
 						<select name="inputFuel" id="inputFuel" class="form-control">
-							<option value="voiture">Essence</option>
-							<option value="camion">Diesel</option>
+							<option value="essence">Essence</option>
+							<option value="diesel">Diesel</option>
 						</select>
 					</div>
 				</div>
