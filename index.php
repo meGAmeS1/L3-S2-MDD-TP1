@@ -12,11 +12,20 @@
 				<h1>CarDrive</h1>
 				<h2><small>La meilleure façon de gérer votre véhicule</small></h2>
 				<br>
+				<?php if (isConnected())  { ?>
+					<p>Vous êtes connecté, vous pouvez accéder à votre espace !</p>
+					<a href="./espace.php" class="btn btn-success btn-lg" role="button">Espace personnel</a>
+					<?php
+				}
+				else { ?>
 				<p>Connectez-vous à votre compte ou créez-vous votre espace</p>
 				<p>
 					<button type="button" class="btn btn-primary btn-lg" onclick="create()" >Création de compte</button>
 					<button type="button" class="btn btn-success btn-lg" onclick="connect()" >Connexion</button>
 				</p>
+				<?php
+				}
+				?>
 			</div><!-- /.container -->
 		</div>
 
@@ -128,11 +137,16 @@
 			<button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
 			<button type="button" class="btn btn-primary" onclick="sendCreate()">Valider</button>
 		</div>
-
+		
+		<!-- Fail modal buttons -->
+		<div class="hide" id="buttonsClose">
+			<button class="btn btn-default" data-dismiss="modal" aria-hidden="true">Fermer</button>
+		</div>
 		<?php include("./includes/js.php"); ?>
 		<script type="text/javascript">
 			function create () {
 				$('#myModalLabel').html("Création d'un compte");
+				$('#myModalAlert').html('');
 				$('#myModalForm').html($('#formCreate').html());
 				$('#myModalFooter').html($('#buttonsCreate').html());
 				$('#myModal').modal('show');
@@ -141,17 +155,99 @@
 
 			function connect() {
 				$('#myModalLabel').html("Connexion à votre espace personnel");
+				$('#myModalAlert').html('');
 				$('#myModalForm').html($('#formConnect').html());
 				$('#myModalFooter').html($('#buttonsConnect').html());
 				$('#myModal').modal('show');
 			}
 
 			function sendCreate () {
-				// body...
+				var reqform = $.ajax({
+					type:"POST", 
+					data: {
+						"login" : $(".modal-body #inputLogin").val(),
+						"password" : $(".modal-body #inputPassword").val(),
+						"categorie" : $(".modal-body #inputCategorie").val(),
+						"price" : $(".modal-body #inputPrice").val(),
+						"fuel" : $(".modal-body #inputFuel").val(),
+						"volume" : $(".modal-body #inputVolume").val(),
+						"consumption" : $(".modal-body #inputConsumption").val()
+					}, 
+					url:"./ajax/createaccount.php"	
+				});
+
+				reqform.done(function(data, textStatus, jqXHR){
+					var result = jQuery.parseJSON(data);
+
+					if (result.errorlist.length > 0) {
+						listerreur = "";
+
+						$.each(result.errorlist, function (key, value) {
+							listerreur += "<li>" + value + "</li>";
+						});
+
+						$('#myModalAlert').html('<div class="panel panel-danger"><div class="panel-heading"><h3 class="panel-title">Erreur dans la saisie !</h3></div><div class="panel-body">Vous avez incorrectement saisi les données suivantes :<ul>'+listerreur+'</ul></div></div>');
+					}
+					else if (result.reqfail == 1) {
+						$('#myModalForm').html('');
+						$('#myModalAlert').html('<div class="panel panel-danger"><div class="panel-heading"><h3 class="panel-title">Erreur</h3></div><div class="panel-body">Il y a eu une problème dans l\'éxécution d\'une requête</div></div>');
+						$('#myModalFooter').html($('#buttonsClose').html());
+					}
+					else {
+						$('#myModalForm').html('');
+						$('#myModalAlert').html('<div class="panel panel-success"><div class="panel-heading"><h3 class="panel-title">Saisie réussie</h3></div><div class="panel-body">Votre compte a bien été créé</div></div>');
+						$('#myModalFooter').html($('#buttonsClose').html());
+						$('#myModal').on('hide.bs.modal', function () {window.location.href = "./espace.php";});
+					}
+				});
+
+				reqform.fail(function(jqXHR, textStatus){
+					$('#myModalForm').html('');
+					$('#myModalAlert').html('<div class="panel panel-error"><div class="panel-heading"><h3 class="panel-title">Erreur</h3></div><div class="panel-body">Impossible d\'envoyer le formulaire</div></div>');
+					$('#myModalFooter').html($('#buttonsClose').html());
+				});
 			}
 
 			function sendConnect () {
-				// body...
+				var reqform = $.ajax({
+					type:"POST", 
+					data: {
+						"login" : $(".modal-body #inputLogin").val(),
+						"password" : $(".modal-body #inputPassword").val()
+					}, 
+					url:"./ajax/connect.php"	
+				});
+
+				reqform.done(function(data, textStatus, jqXHR){
+					var result = jQuery.parseJSON(data);
+
+					if (result.errorlist.length > 0) {
+						listerreur = "";
+
+						$.each(result.errorlist, function (key, value) {
+							listerreur += "<li>" + value + "</li>";
+						});
+
+						$('#myModalAlert').html('<div class="panel panel-danger"><div class="panel-heading"><h3 class="panel-title">Erreur dans la saisie !</h3></div><div class="panel-body">Vous avez incorrectement saisi les données suivantes :<ul>'+listerreur+'</ul></div></div>');
+					}
+					else if (result.reqfail == 1) {
+						$('#myModalForm').html('');
+						$('#myModalAlert').html('<div class="panel panel-danger"><div class="panel-heading"><h3 class="panel-title">Erreur</h3></div><div class="panel-body">Il y a eu une problème dans l\'éxécution d\'une requête</div></div>');
+						$('#myModalFooter').html($('#buttonsClose').html());
+					}
+					else {
+						$('#myModalForm').html('');
+						$('#myModalAlert').html('<div class="panel panel-success"><div class="panel-heading"><h3 class="panel-title">Connecté</h3></div><div class="panel-body">Vous êtes désormais connecté à votre espace personnel</div></div>');
+						$('#myModalFooter').html($('#buttonsClose').html());
+						$('#myModal').on('hide.bs.modal', function () {window.location.href = "./espace.php";});
+					}
+				});
+
+				reqform.fail(function(jqXHR, textStatus){
+					$('#myModalForm').html('');
+					$('#myModalAlert').html('<div class="alert alert-error"><h3>Erreur</h3></div><div class="panel-body">Impossible d\'envoyer le formulaire</div></div>');
+					$('#myModalFooter').html($('#buttonsClose').html());
+				});
 			}
 		</script>
 	</body>

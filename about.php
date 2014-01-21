@@ -15,7 +15,7 @@
 				<h1>À propos</h1>
 				<h2>TP de Florentin Le Moal</h2>
 				<br>
-				<p>Propulsé avec amour et tradition avec Bootstrap</p>
+				<p>Propulsé avec amour et tradition par Bootstrap</p>
 			</div><!-- /.container -->
 		</div>
 		<div class="container">
