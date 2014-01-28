@@ -92,7 +92,7 @@ include_once("./includes/variables.php");
 					<div class="col-md-offset-2 col-md-3">
 						<div class="well" style="text-align: center;">
 							<legend>Rouler</legend>
-								<div class="form-horizontal" role="form">
+							<div class="form-horizontal" role="form">
 								<div class="form-group">
 									<div class="input-group">
 										<input type="number" class="form-control" id="inputDrive" placeholder="Distance" onkeypress="if (event.keyCode == 13) drive();" autocomplete=off required>
